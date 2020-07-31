@@ -31,10 +31,3 @@ def mean_wave_period(wavenumber_spectrum, frequency):
 
 def dominant_wave_period(wavenumber_spectrum, frequency):
     return np.sum(wavenumber_spectrum**4) / np.sum(wavenumber_spectrum**4 * frequency)
-
-
-def form_drag(source_input, wavenumber_spectrum, phase_speed, wavenumber, \
-              water_density=1e3, grav=9.8):
-    dk = np.zeros(wavenumber.shape)
-    dk[1:] = np.diff(wavenumber)
-    return water_density * grav * np.sum(source_input * wavenumber_spectrum * dk / phase_speed)
