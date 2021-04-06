@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 x = np.arange(0, 4 * np.pi + 1e-3, 1e-3)
+z = np.arange(-1, 0 + 1e-3, 1e-3)
 
 eta_no_waves = np.zeros((x.size))
 eta_windsea = 0.02 * np.sin(8 * x)
@@ -9,16 +10,23 @@ eta_swell = 0.1 * np.sin(x)
 modulation = 0.5 * (np.sin(x - 0.25 * np.pi) + 1) 
 eta_mixed = eta_swell + modulation * eta_windsea
 
+U = 2 * np.pi * np.exp(z)
+
 fig = plt.figure(figsize=(8, 6))
 ax1 = plt.subplot2grid((2, 2), (0, 0))
 ax2 = plt.subplot2grid((2, 2), (0, 1))
 ax3 = plt.subplot2grid((2, 2), (1, 0))
 ax4 = plt.subplot2grid((2, 2), (1, 1))
+axes = [ax1, ax2, ax3, ax4]
 
 ax1.plot(x, eta_no_waves, lw=3, c='tab:blue')
 ax2.plot(x, eta_windsea, lw=3, c='tab:blue')
 ax3.plot(x, eta_swell, lw=3, c='tab:blue')
 ax4.plot(x, eta_mixed, lw=3, c='tab:blue')
+
+for ax in axes:
+    ax.plot(U + np.pi, z, 'c-', lw=2, zorder=1)
+    ax.plot([np.pi, np.pi], [-1, 0], 'c--', lw=2, zorder=1)
 
 def draw_arrow(ax, zeff, dx):
     arrow_start_x = 3 / 2 * np.pi
@@ -29,9 +37,9 @@ def draw_arrow(ax, zeff, dx):
              width=width, head_width=head_width, head_length=head_length, zorder=2)
 
 zeff1 = -0.0
-zeff2 = -0.4
+zeff2 = -0.2
 zeff3 = -0.8
-zeff4 = -0.6
+zeff4 = -0.5
 
 ax1.arrow(np.pi, 0, 2 * np.pi, 0, facecolor='c', linewidth=2, edgecolor='k',
          width=0.04, head_width=0.1, head_length=0.5, zorder=3)
