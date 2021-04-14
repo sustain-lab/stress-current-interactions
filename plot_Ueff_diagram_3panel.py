@@ -61,8 +61,10 @@ if DRAW_LABELS:
     ax3.text(2.3 * np.pi, - 0.1, r'$\mathcal{U}(\mathit{z})$', fontsize=20, ha='left', va='top', zorder=3)
 
     titles = ['No waves', 'Young windsea', 'Mature windsea']
+    panel_labels = ['A', 'B', 'C']
     for n, ax in enumerate(axes):
         ax.set_title(titles[n], fontsize=16)
+        ax.text(0.02, 1.01, panel_labels[n], transform=ax.transAxes, ha='left', va='bottom', fontsize=16)
 
 for ax in axes:
     ax.set_xticks([])
