@@ -42,10 +42,10 @@ def draw_arrow(ax, zeff, dx):
     head_width = 2 * width
     head_length = 0.5 * dx
     ax.arrow(arrow_start_x, zeff / 2, 0.5 * dx, 0, facecolor='c', linewidth=2, edgecolor='k',
-             width=width, head_width=head_width, head_length=head_length, zorder=3)
+             width=width, head_width=head_width, head_length=head_length, zorder=3, alpha=0.7)
 
 ax1.arrow(np.pi, 0, Ueff[0], 0, facecolor='c', linewidth=2, edgecolor='k',
-          width=0.04, head_width=0.1, head_length=0.5, zorder=3)
+          width=0.04, head_width=0.1, head_length=0.5, zorder=3, alpha=0.7)
 
 for n in range(1, 4):
     draw_arrow(axes[n], zeff[n], Ueff[n])
@@ -53,11 +53,11 @@ for n in range(1, 4):
 
 if DRAW_LABELS:
     for n in range(4):
-        axes[n].text(0, zeff[n], r'$\mathcal{Z}_{eff}$', fontsize=16, ha='right', va='center')
+        axes[n].text(0, zeff[n], r'$\mathcal{Z}(k)$', fontsize=16, ha='right', va='center')
         if n == 0:
-            axes[n].text(2 * np.pi, 0.05, r'$\mathcal{U}_{eff}$', fontsize=16, ha='center', va='bottom', zorder=3)
+            axes[n].text(2 * np.pi, 0.05, r'$\mathcal{U}_0$', fontsize=16, ha='center', va='bottom', zorder=3)
         else:
-            axes[n].text(0.9 * np.pi, zeff[n] / 2, r'$\mathcal{U}_{eff}$', fontsize=16, ha='right', va='center', zorder=3)
+            axes[n].text(0.9 * np.pi, zeff[n] / 2, r'$\mathcal{U}_f$', fontsize=16, ha='right', va='center', zorder=3)
     
     ax1.text(1.3 * np.pi, - 0.4, r'$\mathcal{U}(\mathit{z})$', fontsize=16, ha='left', va='center', zorder=3)
     ax2.text(1.3 * np.pi, - 0.4, r'$\mathcal{U}(\mathit{z})$', fontsize=16, ha='left', va='center', zorder=3)
@@ -74,6 +74,7 @@ for ax in axes:
     ax.set_yticks([])
     ax.set_xlim(np.min(x), np.max(x))
     ax.set_ylim(-1, 0.3)
+    ax.plot([x[0], x[-1]], [0, 0], 'k:')
 
 plt.savefig('Ueff_diagram.svg')
 plt.savefig('Ueff_diagram.png', dpi=200)
